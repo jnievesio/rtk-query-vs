@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+//import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import { selectAuth/*, setUser */} from "./features/Auth";
+//import { useAppDispatch } from "./hooks";
+import Home from "./pages/Home";
+import Layout from "./pages/Layout";
+import SignIn from "./pages/SignIn";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   // const dispatch = useAppDispatch();
+    //const user = JSON.parse(localStorage.getItem("User"));
+
+    const user = useSelector(selectAuth);
+    console.log({user})
+
+   /*  useEffect(() => {
+        dispatch(setUser(user));
+    }, [dispatch, user]); */
+
+    return (
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index path="/" element={<Home />} />
+                <Route path="/auth" element={<SignIn />} />
+            </Route>
+        </Routes>
+    );
 }
 
 export default App;
